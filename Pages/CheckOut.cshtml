@@ -1,0 +1,27 @@
+﻿@page
+@model webshopgaragemanager.Pages.CheckOutModel
+@{
+}
+
+<div class="card-deck">
+    <h1>RECEIPT:</h1>
+</div>
+
+@foreach (var PriceCheckOut in shoppingCartModel.ShoppingCartItem)
+{
+    <div class="card" style="width: auto;">
+        <p class="card-text">@PriceCheckOut.name</p>
+        <p class="card-text">$@PriceCheckOut.price</p>
+
+    </div>
+}
+
+<p class="card-text">Total price (in dollar): $@CheckOutModel.summa</p>
+<p class="card-text">Name: @shoppingCartModel.Customer[shoppingCartModel.Key].name</p>
+<p class="card-text">Address: @shoppingCartModel.Customer[shoppingCartModel.Key].address</p>
+
+
+@if (shoppingCartModel.IsPaid)
+{
+    <p class="card-text"><b>PAID!</b></p>
+}

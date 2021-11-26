@@ -1,0 +1,37 @@
+﻿@page
+@model webshopgaragemanager.Pages.shoppingCartModel
+@{
+}
+
+<div class="card-deck">
+    <h1>Shopping cart:</h1>
+    <table>
+        @foreach (var item in shoppingCartModel.ShoppingCartItem)
+        {
+            <tr>
+                <td>
+                    <img class="card-img-top" src="@item.imgUrl" height="100" alt="Card image cap">
+                    <p class="card-text">Name: @item.name</p>
+                    <p class="card-text">Price (In dollar): $@item.price</p>
+                    <p class="card-text">Item Id: @item.itemid</p>
+                    <div class="card-body"></div>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+
+<form method="post">
+    <label for="cars">Choose name and address:</label>
+    <select name="item_name1" id="item_name1">
+        @for (int i = 0; i < shoppingCartModel.Customer.Count; i++)
+        {
+            <option value="@i">@shoppingCartModel.Customer[i].name</option>
+
+        }
+
+    </select>
+    <br><br>
+    <input type="submit" value="Buy and kvitto">
+</form>
+

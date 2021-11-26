@@ -1,0 +1,77 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<style>
+    #myColor {
+        background-color: red;
+    }
+</style>
+
+<div class="card-deck">
+    <form asp-page-handler="SearchItem">
+        <label for="fname">Search Item Name:</label>
+        <input type="text" id="fname" name="fname" value="@IndexModel.SearchTerm"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    @foreach (var item in Model.Item)
+    {
+        @if (item.name.ToLower().Contains(IndexModel.SearchTerm.ToLower()))
+        {
+            <div class="card" style="width: auto;">
+                <form asp-page-handler="AddItem">
+                    <img class="card-img-top" width="100" height="100" src="@item.imgUrl" alt="Card image cap">
+                    <p class="card-text">@item.name</p>
+                    <p class="card-text">$@item.price</p>
+                    <p class="card-text">@item.itemid</p>
+                    <input type="hidden" name="item_url" value="@item.imgUrl" />
+                    <input type="hidden" name="item_name" value="@item.name" />
+                    <input type="hidden" name="item_price" value="@item.price" />
+                    <input type="hidden" name="item_itemid" value="@item.itemid" />
+                    <input type="submit" value="Add to Cart" />
+                </form>
+                <div class="card-body">
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<form asp-page-handler="Sort" class="d-flex align-content-center">
+    <label class="mr-2">Sortera: </label>
+    <select asp-for="SortTerm" class="h-100 d-flex" onchange="this.form.submit()" style="padding: 5px;">
+        <option value="Name">Namn</option>
+        <option value="LPrice">Lägsta Pris</option>
+        <option value="HPrice">Högsta Pris</option>
+    </select>
+</form>
+
+<div class="card-deck">
+    <form asp-page-handler="Highest">
+        <label for="Highest">What's your Budget<br/>Enter highest Price:</label>
+        <input type="text" id="Highest" name="Highest"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+    @foreach (var item in Model.Item)
+    {
+        @if (item.price <= IndexModel.HighestTerm)
+        {
+            <div class="card" style="width: auto;">
+                <form asp-page-handler="AddItem">
+                    <img class="card-img-top" width="100" height="100" src="@item.imgUrl" alt="Card image cap">
+                    <p class="card-text">@item.name</p>
+                    <p class="card-text">$@item.price</p>
+                    <p class="card-text">@item.itemid</p>
+                    <input type="hidden" name="item_url" value="@item.imgUrl" />
+                    <input type="hidden" name="item_name" value="@item.name" />
+                    <input type="hidden" name="item_price" value="@item.price" />
+                    <input type="hidden" name="item_itemid" value="@item.itemid" />
+                    <input type="submit" value="Add to Cart" />
+                </form>
+                <div class="card-body">
+                </div>
+            </div>
+        }
+    }
+</div>
